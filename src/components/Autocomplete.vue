@@ -74,7 +74,7 @@ interface Countries {
 }
 
 export default defineComponent({
-  name: "HelloWorld",
+  name: "Autcomplete",
   data() {
     return {
       keys: {
