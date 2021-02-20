@@ -1,5 +1,7 @@
 # vue-a11y-autocomplete-v2
 
+[Live site](http://vue-autocomplete.surge.sh/)
+
 ## Project setup
 ```
 npm install

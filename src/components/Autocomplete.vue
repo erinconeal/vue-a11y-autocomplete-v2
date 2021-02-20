@@ -3,7 +3,7 @@
     <h1>vue-a11y-autocomplete</h1>
     <div class="container">
       <label for="destination">
-        <span>Destination</span>
+        <span>Country name</span>
       </label>
       <div class="autocomplete mt-1">
         <input
