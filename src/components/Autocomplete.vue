@@ -33,6 +33,7 @@
         </svg>
         <ul
           id="autocomplete-options--destination"
+          ref="autocomplete-options--destination"
           role="listbox"
           :class="{ hidden: !menuOpen }"
           @keydown="onMenuKeyDown"
@@ -161,7 +162,7 @@ export default defineComponent({
         this.$nextTick(() => {
           (this.$refs[
             `autocomplete-option-index--${this.indexCounter}`
-          ] as any).focus();
+          ] as HTMLOptionElement).focus();
         });
       }
       e.preventDefault();
@@ -172,7 +173,7 @@ export default defineComponent({
         this.$nextTick(() => {
           (this.$refs[
             `autocomplete-option-index--${this.indexCounter}`
-          ] as any).focus();
+          ] as HTMLOptionElement).focus();
         });
       } else {
         this.focusTextBox();
@@ -233,9 +234,9 @@ export default defineComponent({
       this.clearOptions();
       this.results = options;
       this.$nextTick(() => {
-        (document.getElementById(
+        (this.$refs[
           "autocomplete-options--destination"
-        ) as HTMLUListElement).scrollTop = 0;
+        ] as HTMLUListElement).scrollTop = 0;
       });
     },
     showMenu() {
