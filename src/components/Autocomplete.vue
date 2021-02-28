@@ -66,8 +66,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-import countries from "../countries";
+import { defineComponent } from 'vue';
+import countries from '../countries';
 
 interface Countries {
   name: string;
@@ -75,24 +75,24 @@ interface Countries {
 }
 
 export default defineComponent({
-  name: "Autcomplete",
+  name: 'Autcomplete',
   data() {
     return {
       keys: {
-        enter: "Enter",
-        esc: "Escape",
-        space: "Space",
-        up: "ArrowUp",
-        down: "ArrowDown",
-        tab: "Tab",
-        left: "ArrowLeft",
-        right: "ArrowRight"
+        enter: 'Enter',
+        esc: 'Escape',
+        space: 'Space',
+        up: 'ArrowUp',
+        down: 'ArrowDown',
+        tab: 'Tab',
+        left: 'ArrowLeft',
+        right: 'ArrowRight',
       },
-      inputValue: "",
+      inputValue: '',
       isInputFieldFocused: false,
       menuOpen: false,
       results: [] as Countries[],
-      indexCounter: -1
+      indexCounter: -1,
     };
   },
   methods: {
@@ -101,7 +101,7 @@ export default defineComponent({
       if (foundCountry) {
         alert(`Submitting country ${foundCountry.name}`);
       } else {
-        alert("Please submit a valid country from the autocomplete.");
+        alert('Please submit a valid country from the autocomplete.');
       }
     },
     onMenuKeyDown(t: KeyboardEvent) {
@@ -235,7 +235,7 @@ export default defineComponent({
       this.results = options;
       this.$nextTick(() => {
         (this.$refs[
-          "autocomplete-options--destination"
+          'autocomplete-options--destination'
         ] as HTMLUListElement).scrollTop = 0;
       });
     },
@@ -266,7 +266,7 @@ export default defineComponent({
     },
     onDocumentClick(e: Event) {
       // if clicking anywhere but a descendent of the autocomplete, close the menu
-      if (!(e.target as Element).closest("div.autocomplete")) {
+      if (!(e.target as Element).closest('div.autocomplete')) {
         this.hideMenu();
         this.removeTextBoxFocus();
       } else {
@@ -290,14 +290,14 @@ export default defineComponent({
       this.buildMenu(options);
       this.showMenu();
       this.focusTextBox();
-    }
+    },
   },
   mounted() {
-    document.addEventListener("click", this.onDocumentClick);
+    document.addEventListener('click', this.onDocumentClick);
   },
   beforeUnmount() {
-    document.removeEventListener("click", this.onDocumentClick);
-  }
+    document.removeEventListener('click', this.onDocumentClick);
+  },
 });
 </script>
 
@@ -337,7 +337,7 @@ a {
   position: relative;
 }
 
-.autocomplete [type="text"] {
+.autocomplete [type='text'] {
   /* -webkit-appearance: none; */
   border-radius: 0;
   box-sizing: border-box;
@@ -358,7 +358,7 @@ a {
   fill: #4a5568;
 }
 
-.autocomplete [role="listbox"] {
+.autocomplete [role='listbox'] {
   margin: 0;
   max-height: 12em;
   overflow-y: auto;
@@ -379,7 +379,7 @@ a {
   border: 2px solid #718096;
 }
 
-.autocomplete [role="option"] {
+.autocomplete [role='option'] {
   line-height: 22px;
   padding: 0.5em;
   display: block;
@@ -392,7 +392,7 @@ a {
   display: none;
 }
 
-.autocomplete [role="option"][aria-selected="true"] {
+.autocomplete [role='option'][aria-selected='true'] {
   background-color: #005ea5;
   border-color: #005ea5;
   color: #ffffff;
