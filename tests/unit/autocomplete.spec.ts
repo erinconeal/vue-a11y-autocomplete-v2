@@ -51,6 +51,38 @@ describe('Autocomplete.vue', () => {
     expect(wrapper.findAll('li')).toHaveLength(1);
     expect(wrapper.findAll('li')[0].text()).toBe('No results');
   });
+  it('the autocomplete component accepts partial text', async () => {
+    const autocompleteInputField = wrapper.find('input');
+
+    await autocompleteInputField.setValue('lia');
+    expect(autocompleteInputField.element.value).toBe('lia');
+
+    await autocompleteInputField.trigger('keyup');
+    expect(wrapper.find('ul').classes()).not.toContain('hidden');
+    expect(wrapper.findAll('li')).toHaveLength(3);
+    expect(wrapper.findAll('li')[0].text()).toBe('Australia');
+    expect(wrapper.findAll('li')[1].text()).toBe('Mongolia');
+    expect(wrapper.findAll('li')[2].text()).toBe('Somalia');
+  });
+  it('the autocomplete component ignores upper or lower case to find a match', async () => {
+    const autocompleteInputField = wrapper.find('input');
+
+    await autocompleteInputField.setValue('UNITED');
+    expect(autocompleteInputField.element.value).toBe('UNITED');
+
+    await autocompleteInputField.trigger('keyup');
+    expect(wrapper.find('ul').classes()).not.toContain('hidden');
+    expect(wrapper.findAll('li')).toHaveLength(5);
+    expect(wrapper.findAll('li')[0].text()).toBe(
+      'Tanzania, United Republic of'
+    );
+    expect(wrapper.findAll('li')[1].text()).toBe('United Arab Emirates');
+    expect(wrapper.findAll('li')[2].text()).toBe('United Kingdom');
+    expect(wrapper.findAll('li')[3].text()).toBe('United States');
+    expect(wrapper.findAll('li')[4].text()).toBe(
+      'United States Minor Outlying Islands'
+    );
+  });
   it("hitting enter on an item in the menu sets that item's value in the input field", async () => {
     const autocompleteInputField = wrapper.find('input');
 
@@ -274,7 +306,7 @@ describe('Autocomplete.vue', () => {
     );
   });
 
-  it('hitting submit on submitting a valid country name', async () => {
+  it('hitting submit on submitting a valid country name triggers an alert with message containing "Submitting country ..."', async () => {
     global.alert = jest.fn();
     const autocompleteInputField = wrapper.find('input');
 
@@ -301,7 +333,7 @@ describe('Autocomplete.vue', () => {
       'Submitting country Tanzania, United Republic of'
     );
   });
-  it('hitting submit on submitting an invalid country name', async () => {
+  it('hitting submit on submitting an invalid country name triggers an alert with message "Please submit a valid country from the autocomplete."', async () => {
     global.alert = jest.fn();
     const autocompleteInputField = wrapper.find('input');
 
@@ -320,7 +352,7 @@ describe('Autocomplete.vue', () => {
       'Please submit a valid country from the autocomplete.'
     );
   });
-  it('submitting an empty input field', async () => {
+  it('submitting an empty input field triggers an alert with message "Please submit a valid country from the autocomplete."', async () => {
     global.alert = jest.fn();
 
     const submitButton = wrapper.find('button');
