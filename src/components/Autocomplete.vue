@@ -2,8 +2,8 @@
   <div class="hello">
     <h1>vue-a11y-autocomplete</h1>
     <div class="container">
-      <label for="destination">
-        <span>Country name</span>
+      <label id="destination">
+        Country name
       </label>
       <div class="autocomplete mt-1">
         <input
@@ -13,7 +13,7 @@
           autocomplete="off"
           aria-autocomplete="list"
           role="combobox"
-          id="destination"
+          aria-labelledby="destination"
           :aria-expanded="menuOpen ? 'true' : 'false'"
           ref="destination"
           @keyup="onTextBoxKeyUp"
@@ -32,6 +32,7 @@
           <g><polygon points="0 0 22 0 11 17"></polygon></g>
         </svg>
         <ul
+          aria-labelledby="destination"
           id="autocomplete-options--destination"
           ref="autocomplete-options--destination"
           role="listbox"
@@ -52,7 +53,9 @@
             </li>
           </template>
           <template v-else>
-            <li id="autocomplete-option--NoResults">No results</li>
+            <li role="option" id="autocomplete-option--NoResults">
+              No results
+            </li>
           </template>
         </ul>
         <div aria-live="polite" role="status" class="visually-hidden">
@@ -67,7 +70,6 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import countries from '../countries';
 
 interface Countries {
   name: string;
@@ -76,6 +78,11 @@ interface Countries {
 
 export default defineComponent({
   name: 'Autcomplete',
+  props: {
+    countries: {
+      type: Array as () => Countries[],
+    },
+  },
   data() {
     return {
       keys: {
@@ -97,7 +104,9 @@ export default defineComponent({
   },
   methods: {
     submit() {
-      const foundCountry = countries.find(c => c.name === this.inputValue);
+      const foundCountry = (this.countries || []).find(
+        c => c.name === this.inputValue
+      );
       if (foundCountry) {
         alert(`Submitting country ${foundCountry.name}`);
       } else {
@@ -226,7 +235,7 @@ export default defineComponent({
       this.showMenu();
     },
     getOptions() {
-      return countries.filter(country =>
+      return (this.countries || []).filter(country =>
         country.name.toLowerCase().includes(this.inputValue.toLowerCase())
       );
     },
@@ -405,10 +414,10 @@ a {
 
 .btn {
   font-weight: 600;
-  background-color: #4fc08d;
+  background-color: #2f835d;
   transition: all 0.15s ease;
   box-sizing: border-box;
-  border: 1px solid #4fc08d;
+  border: 1px solid #2f835d;
   font-size: 0.9em;
   color: #fff;
   margin: 0.2em 0;

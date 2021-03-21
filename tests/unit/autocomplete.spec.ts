@@ -1,11 +1,16 @@
 import { mount } from '@vue/test-utils';
 import Autocomplete from '@/components/Autocomplete.vue';
+import countries from '@/countries';
 
 declare let global: any;
 describe('Autocomplete.vue', () => {
   let wrapper = mount(Autocomplete);
   beforeEach(() => {
-    wrapper = mount(Autocomplete);
+    wrapper = mount(Autocomplete, {
+      props: {
+        countries,
+      },
+    });
   });
   it('displays an empty input field and submit button on mount', () => {
     const autocompleteInputField = wrapper.find('#destination');
