@@ -2,7 +2,6 @@ import { mount } from '@vue/test-utils';
 import Autocomplete from '@/components/Autocomplete.vue';
 import countries from '@/countries';
 
-declare let global: any;
 describe('Autocomplete.vue', () => {
   let wrapper = mount(Autocomplete);
   beforeEach(() => {
@@ -275,7 +274,7 @@ describe('Autocomplete.vue', () => {
 
     wrapper = mount(Autocomplete, {
       attachTo: '#root',
-    } as any);
+    });
 
     const autocompleteInputField = wrapper.find('input');
     await autocompleteInputField.trigger('click');
@@ -312,7 +311,7 @@ describe('Autocomplete.vue', () => {
   });
 
   it('hitting submit on submitting a valid country name triggers an alert with message containing "Submitting country ..."', async () => {
-    global.alert = jest.fn();
+    window.alert = jest.fn();
     const autocompleteInputField = wrapper.find('input');
 
     await autocompleteInputField.setValue('united');
@@ -339,7 +338,7 @@ describe('Autocomplete.vue', () => {
     );
   });
   it('hitting submit on submitting an invalid country name triggers an alert with message "Please submit a valid country from the autocomplete."', async () => {
-    global.alert = jest.fn();
+    window.alert = jest.fn();
     const autocompleteInputField = wrapper.find('input');
 
     await autocompleteInputField.setValue('xx');
@@ -358,7 +357,7 @@ describe('Autocomplete.vue', () => {
     );
   });
   it('submitting an empty input field triggers an alert with message "Please submit a valid country from the autocomplete."', async () => {
-    global.alert = jest.fn();
+    window.alert = jest.fn();
 
     const submitButton = wrapper.find('button');
     await submitButton.trigger('click');
