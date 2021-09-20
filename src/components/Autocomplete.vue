@@ -345,7 +345,6 @@ a {
 }
 
 .autocomplete [type='text'] {
-  /* -webkit-appearance: none; */
   border-radius: 0;
   box-sizing: border-box;
   width: 100%;
