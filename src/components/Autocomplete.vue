@@ -63,7 +63,9 @@
           <span v-else> {{ results.length }} results available. </span>
         </div>
       </div>
-      <button type="button" @click="submit" class="btn mt-3">Submit</button>
+      <button type="button" @click="submit" class="btn mt-3" id="submitBtn">
+        Submit
+      </button>
     </div>
   </div>
 </template>
@@ -288,10 +290,6 @@ export default defineComponent({
       const options = this.getOptions();
       this.buildMenu(options);
       this.showMenu();
-      // TODO: event: Event
-      // if (typeof event.currentTarget.select === 'function') {
-      //   event.currentTarget.select();
-      // }
     },
     onArrowClick() {
       this.clearOptions();
